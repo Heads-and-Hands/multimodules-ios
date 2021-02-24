@@ -1,0 +1,89 @@
+name: example
+options:
+  deploymentTarget:
+    iOS: 13.0
+  developmentLanguage: ru
+  knownRegions: ["en", "ru", "Base"]
+  createIntermediateGroups: true
+attributes:
+  ORGANIZATIONNAME: Heads and Hands
+configs:
+  Debug: debug
+  Internal: release
+  Release: release
+configFiles:
+  Debug: ./example/Resources/Configuration/Debug.xcconfig
+  Internal: ./example/Resources/Configuration/Internal.xcconfig
+  Release: ./example/Resources/Configuration/Release.xcconfig
+settings:
+  base:
+    VERSIONING_SYSTEM: apple-generic
+    CURRENT_PROJECT_VERSION: 1
+    SWIFT_VERSION: 5.0
+    DEVELOPMENT_TEAM: X86NQK83T7
+    CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: YES
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+  configs:
+    Debug:
+      OTHER_SWIFT_FLAGS: -D DEBUG
+    Internal:
+      OTHER_SWIFT_FLAGS: -D INTERNAL
+      SWIFT_COMPILATION_MODE: wholemodule
+    Release:
+      OTHER_SWIFT_FLAGS: -D RELEASE
+      SWIFT_COMPILATION_MODE: wholemodule
+targets:
+  example:
+    type: application
+    platform: iOS
+    dependencies:
+      - package: AuthUserStory
+      - package: CatalogUserStory
+      - package: ApiClient
+      - package: CommonAssets
+      - package: UIComponents
+    sources:
+      - path: example
+    scheme:
+      testTargets:
+        - exampleTests
+    attributes:
+      ProvisioningStyle: Manual
+      DevelopmentTeam: X86NQK83T7
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: "1"
+        PRODUCT_BUNDLE_IDENTIFIER: ru.handh.example
+      configs:
+        Debug:
+          CODE_SIGN_IDENTITY: "iPhone Developer"
+          PROVISIONING_PROFILE_SPECIFIER: match Development ru.handh.example
+          CODE_SIGN_ENTITLEMENTS: example/Entitlements/Debug.entitlements
+        Internal:
+          CODE_SIGN_IDENTITY: "iPhone Distribution"
+          CODE_SIGN_IDENTITY[sdk=iphoneos*]: "iPhone Distribution"
+          PROVISIONING_PROFILE_SPECIFIER: match AppStore ru.handh.example
+          CODE_SIGN_ENTITLEMENTS: example/Entitlements/AppStore.entitlements
+        Release:
+          CODE_SIGN_IDENTITY: "iPhone Distribution"
+          CODE_SIGN_IDENTITY[sdk=iphoneos*]: "iPhone Distribution"
+          PROVISIONING_PROFILE_SPECIFIER: match AppStore ru.handh.example
+          CODE_SIGN_ENTITLEMENTS: example/Entitlements/AppStore.entitlements
+  exampleTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - exampleTests
+    dependencies:
+      - target: example
+packages:
+    ApiClient:
+        path: Packages/ApiClient
+    CommonAssets:
+        path: Packages/CommonAssets
+    UIComponents:
+        path: Packages/UIComponents
+    AuthUserStory:
+        path: Packages/AuthUserStory
+    CatalogUserStory:
+        path: Packages/CatalogUserStory
