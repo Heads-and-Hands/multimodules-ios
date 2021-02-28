@@ -16,6 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
+        let testString = NSLocalizedString("language", bundle: Bundle(for: SceneDelegate.self), comment: "")
+        print("Current language \(testString)")
+
         let window = UIWindow(windowScene: scene)
         window.rootViewController = AuthViewController()
         window.makeKeyAndVisible()

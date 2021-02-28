@@ -7,6 +7,7 @@
 
 import UIKit
 import UIComponents
+import CommonAssets
 
 public class AuthViewController: UIViewController {
     public override func viewDidLoad() {
@@ -15,7 +16,7 @@ public class AuthViewController: UIViewController {
         view.backgroundColor = .lightGray
 
         let button = Button()
-        button.setTitle("Button", for: .normal)
+        button.setTitle(L10n.Common.buttonContinue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
 
