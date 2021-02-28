@@ -1,4 +1,5 @@
 BREW := /usr/local/bin/brew
+CHILD_MAKEFILES_DIRS = $(sort $(dir $(wildcard Packages/*/Makefile)))
 
 all: bootstrap
 
@@ -27,8 +28,12 @@ lint:
 	mint run swiftlint
 
 ## swiftgen: Trigger code generation from assets with swiftgen tool
-swiftgen:
+swiftgen: swiftgen_packages
 	mint run swiftgen
+
+.PHONY:
+swiftgen_packages: $(CHILD_MAKEFILES_DIRS)
+	@for d in $(CHILD_MAKEFILES_DIRS); do ( cd $$d && ln -s ../../Mintfile Mintfile && $(MAKE) && rm -fr Mintfile; ); done
 
 ## clean: Clean up project files
 clean:
