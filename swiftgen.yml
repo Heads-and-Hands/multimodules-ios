@@ -1,5 +1,5 @@
-input_dir: plg/Resources/
-output_dir: plg/Classes/Generated
+input_dir: example/Resources/
+output_dir: example/Classes/Generated
 strings:
     inputs:
         - ru.lproj/Localizable.strings
