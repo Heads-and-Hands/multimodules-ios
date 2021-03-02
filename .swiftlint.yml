@@ -1,6 +1,5 @@
 excluded:
   - .cache
-  - Packages
 
 disabled_rules:
   - trailing_comma
