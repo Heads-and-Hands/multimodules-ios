@@ -5,10 +5,13 @@
 //  Created by basalaev on 23.02.2021.
 //
 
+import Routing
 import UIKit
 import UIComponents
 
 public class AuthViewController: UIViewController {
+    var onButton: VoidClosure?
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +20,7 @@ public class AuthViewController: UIViewController {
         let button = Button()
         button.setTitle("Button", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
         view.addSubview(button)
 
         NSLayoutConstraint.activate([
@@ -36,5 +40,14 @@ public class AuthViewController: UIViewController {
             customView.widthAnchor.constraint(equalToConstant: 300),
             customView.heightAnchor.constraint(equalToConstant: 300),
         ])
+    }
+
+    deinit {
+        print("deinit \(String(describing: self))")
+    }
+
+    @objc
+    private func didTap() {
+        onButton?()
     }
 }
