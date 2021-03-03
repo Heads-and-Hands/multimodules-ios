@@ -5,6 +5,7 @@
 //  Created by basalaev on 23.02.2021.
 //
 
+import CatalogUserStory
 import UIKit
 import UIComponents
 
@@ -17,6 +18,7 @@ public class AuthViewController: UIViewController {
         let button = Button()
         button.setTitle("Button", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(showCatalog), for: .touchUpInside)
         view.addSubview(button)
 
         NSLayoutConstraint.activate([
@@ -36,5 +38,16 @@ public class AuthViewController: UIViewController {
             customView.widthAnchor.constraint(equalToConstant: 300),
             customView.heightAnchor.constraint(equalToConstant: 300),
         ])
+    }
+
+    @objc
+    private func showCatalog() {
+        performSegue(withIdentifier: "catalog", sender: self)
+        return
+    }
+
+    @IBSegueAction
+    func catalog(_ coder: NSCoder) -> UIViewController? {
+        CatalogViewController(coder: coder, email: "aa@aa.aa")
     }
 }

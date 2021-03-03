@@ -17,8 +17,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = AuthViewController()
+
+        guard let resourcePath = Bundle.main.path(forResource: "AuthUserStory_AuthUserStory", ofType: "bundle"),
+              let bundle = Bundle(path: resourcePath) else {
+            return
+        }
+
+        let storyboard = UIStoryboard(name: "Auth", bundle: bundle)
+        window.rootViewController = storyboard.instantiateInitialViewController()
         window.makeKeyAndVisible()
         self.window = window
+
+        /// Не знаю что происходит, но надо загрузить все бандлы
+        if let resourcePath2 = Bundle.main.path(forResource: "CatalogUserStory_CatalogUserStory", ofType: "bundle"),
+              let bundle2 = Bundle(path: resourcePath2) {
+            bundle2.load()
+        }
     }
 }
