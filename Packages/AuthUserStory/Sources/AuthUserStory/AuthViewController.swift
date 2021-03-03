@@ -5,10 +5,15 @@
 //  Created by basalaev on 23.02.2021.
 //
 
+import ApiClient
 import UIKit
 import UIComponents
 
 public class AuthViewController: UIViewController {
+    var apiProvider: ApiProvider!
+
+    private let customView = CustomView.make()
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,7 +31,6 @@ public class AuthViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 60),
         ])
 
-        let customView = CustomView.make()
         customView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(customView)
 
@@ -36,5 +40,13 @@ public class AuthViewController: UIViewController {
             customView.widthAnchor.constraint(equalToConstant: 300),
             customView.heightAnchor.constraint(equalToConstant: 300),
         ])
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        apiProvider.load { [weak self] in
+            self?.customView.text = $0
+        }
     }
 }
