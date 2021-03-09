@@ -16,4 +16,15 @@ public class CustomView: UIView {
         }
         return view
     }
+
+    @IBOutlet private var label: UILabel!
+
+    public var text: String? {
+        get {
+            label.text
+        }
+        set {
+            label.text = newValue
+        }
+    }
 }

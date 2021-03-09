@@ -3,11 +3,14 @@
 // Copyright © 2021 Heads and Hands. All rights reserved.
 //
 
-import UIKit
 import AuthUserStory
+import Dip
+import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Internal
+
+    private let container = DependencyContainer.configure()
 
     var window: UIWindow?
 
@@ -17,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = AuthViewController()
+        window.rootViewController = try? container.resolve() as AuthViewController
         window.makeKeyAndVisible()
         self.window = window
     }
