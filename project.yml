@@ -40,6 +40,7 @@ targets:
       - package: AuthUserStory
       - package: CatalogUserStory
       - package: ApiClient
+      - package: Coordinator
       - package: CommonAssets
       - package: UIComponents
     sources:
@@ -81,6 +82,9 @@ packages:
         path: Packages/ApiClient
     CommonAssets:
         path: Packages/CommonAssets
+    Coordinator:
+        url: https://github.com/Heads-and-Hands/Coordinator
+        exactVersion: 0.0.4
     UIComponents:
         path: Packages/UIComponents
     AuthUserStory:

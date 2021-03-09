@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import Routing
 import AuthUserStory
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -12,13 +13,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
-        guard let scene = scene as? UIWindowScene else {
-            return
-        }
+        do {
+            guard let scene = scene as? UIWindowScene else {
+                return
+            }
 
-        let window = UIWindow(windowScene: scene)
-        window.rootViewController = AuthViewController()
-        window.makeKeyAndVisible()
-        self.window = window
+            let window = UIWindow(windowScene: scene)
+            let router = WindowRouter(window: window)
+            let appCoordinator = AppCoordinator(router: router, resolver: resolver)
+
+            self.window = window
+            self.appCoordinator = appCoordinator
+
+            try appCoordinator.start()
+        } catch {
+        }
     }
+
+    private let resolver = CommonContainer()
+    private var appCoordinator: AppCoordinator?
 }
