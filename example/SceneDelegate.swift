@@ -5,6 +5,7 @@
 
 import UIKit
 import AuthUserStory
+import ApiClient
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Internal
@@ -17,7 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = AuthViewController()
+        let vc = AuthViewController()
+        vc.apiClient = ApiClient(configuration: ApiConfiguration())
+        window.rootViewController = vc
         window.makeKeyAndVisible()
         self.window = window
     }
