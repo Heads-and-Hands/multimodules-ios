@@ -12,7 +12,7 @@ public class Button: UIButton {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = Colors.base
+        backgroundColor = Asset.base.color
     }
 
     required init?(coder: NSCoder) {

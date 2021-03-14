@@ -35,7 +35,7 @@ import Foundation
     return {{enumName}}.tr("{{table}}", "{{string.key}}", {% call argumentsBlock string.types %})
   }
   {% else %}
-  static var {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}: String {
+  {{accessModifier}} static var {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}: String {
     return {{enumName}}.tr("{{table}}", "{{string.key}}")
   }
   {% endif %}
@@ -69,12 +69,23 @@ import Foundation
 extension {{enumName}} {
   private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
     // swiftlint:disable:next nslocalizedstring_key
-    let format = NSLocalizedString(key, tableName: table, bundle: Bundle(for: BundleToken.self), comment: "")
+    let format = NSLocalizedString(key, tableName: table, bundle: BundleToken.bundle, comment: "")
     return String(format: format, locale: Locale.current, arguments: args)
   }
 }
 
-private final class BundleToken {}
+// swiftlint:disable convenience_type
+private final class BundleToken {
+  static let bundle: Bundle = {
+    #if SWIFT_PACKAGE
+    return Bundle.module
+    #else
+    return Bundle(for: BundleToken.self)
+    #endif
+  }()
+}
+// swiftlint:enable convenience_type
+
 {% else %}
 // No string found
 {% endif %}
