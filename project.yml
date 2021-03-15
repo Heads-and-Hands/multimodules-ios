@@ -47,6 +47,14 @@ targets:
     scheme:
       testTargets:
         - exampleTests
+    prebuildScripts:
+      - script: |
+                if [ "${CONFIGURATION}" == "Debug" ]; then
+                  if which mint >/dev/null; then
+                    make lint
+                  fi
+                fi
+        name: SwiftLint
     attributes:
       ProvisioningStyle: Manual
       DevelopmentTeam: X86NQK83T7
