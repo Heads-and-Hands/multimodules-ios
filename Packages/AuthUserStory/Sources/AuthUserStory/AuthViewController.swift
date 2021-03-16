@@ -7,6 +7,7 @@
 
 import UIKit
 import UIComponents
+import CommonAssets
 import ApiClient
 
 public class AuthViewController: UIViewController {
@@ -19,7 +20,7 @@ public class AuthViewController: UIViewController {
         view.backgroundColor = .lightGray
 
         let button = Button()
-        button.setTitle("Button api", for: .normal)
+        button.setTitle(L10n.Common.buttonContinue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(apiButtonTap), for: .touchUpInside)
         view.addSubview(button)

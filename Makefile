@@ -1,5 +1,6 @@
 BREW := /usr/local/bin/brew
 CHILD_MAKEFILES_DIRS = $(sort $(dir $(wildcard Packages/*/Makefile)))
+PACKAGE_SOURCES_DIRS = $(sort $(dir $(wildcard Packages/*/Sources/**)))
 
 all: bootstrap
 
@@ -25,7 +26,8 @@ fmt:
 
 ## lint: Launch swift files linter check
 lint:
-	mint run swiftlint
+	mint run swiftlint --path example
+	@for d in $(PACKAGE_SOURCES_DIRS); do ( mint run swiftlint --path $$d; ); done
 
 ## swiftgen: Trigger code generation from assets with swiftgen tool
 swiftgen: swiftgen_packages
