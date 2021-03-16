@@ -8,8 +8,12 @@
 import UIKit
 import UIComponents
 import CommonAssets
+import ApiClient
 
 public class AuthViewController: UIViewController {
+
+    public var apiClient: ApiClient?
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +22,7 @@ public class AuthViewController: UIViewController {
         let button = Button()
         button.setTitle(L10n.Common.buttonContinue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(apiButtonTap), for: .touchUpInside)
         view.addSubview(button)
 
         NSLayoutConstraint.activate([
@@ -37,5 +42,19 @@ public class AuthViewController: UIViewController {
             customView.widthAnchor.constraint(equalToConstant: 300),
             customView.heightAnchor.constraint(equalToConstant: 300),
         ])
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func apiButtonTap() {
+        apiClient?.authDevice(id: UIDevice.current.identifierForVendor?.uuidString ?? "") { result in
+            switch result {
+            case let .success(model):
+                print("Model: \(model)")
+            case let .failure(error):
+                print("Error: \(error)")
+            }
+        }
     }
 }
