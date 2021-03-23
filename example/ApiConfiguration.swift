@@ -1,3 +1,5 @@
+
+/*
 import ApiClient
 
 struct ApiConfiguration: ApiClientConfiguration {
@@ -13,4 +15,4 @@ struct ApiConfiguration: ApiClientConfiguration {
     var debugMode: Bool {
         true
     }
-}
+}*/

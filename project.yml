@@ -37,11 +37,8 @@ targets:
     type: application
     platform: iOS
     dependencies:
-      - package: AuthUserStory
-      - package: CatalogUserStory
-      - package: ApiClient
-      - package: CommonAssets
-      - package: UIComponents
+      - package: ServiceSportmaster
+      - package: ServiceAfisha
     sources:
       - path: example
     scheme:
@@ -85,13 +82,17 @@ targets:
     dependencies:
       - target: example
 packages:
-    ApiClient:
-        path: Packages/ApiClient
-    CommonAssets:
-        path: Packages/CommonAssets
-    UIComponents:
-        path: Packages/UIComponents
-    AuthUserStory:
-        path: Packages/AuthUserStory
-    CatalogUserStory:
-        path: Packages/CatalogUserStory
+    ServiceSportmaster:
+        path: Services/ServiceSportmaster
+    ServiceAfisha:
+        path: Services/ServiceAfisha
+    FeatureProfile:
+        path: Features/FeatureProfile
+    FeatureSportmasterMain:
+        path: Features/FeatureSportmasterMain
+    FeatureAfishaList:
+        path: Features/FeatureAfishaList
+    FeatureAfishaDetail:
+        path: Features/FeatureAfishaDetail
+    CommonCore:
+        path: Common/CommonCore
