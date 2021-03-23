@@ -10,7 +10,7 @@ import CommonCore
 import Dip
 
 class ProfileCoordinator: Coordinator<NavigationRouter, ProfileResolver> {
-    func start() throws {
+    override func start() throws {
         let screen = try resolver.profileScreen()
         router.push(controller: screen, animated: true)
     }

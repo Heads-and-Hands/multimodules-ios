@@ -39,6 +39,7 @@ targets:
     dependencies:
       - package: ServiceSportmaster
       - package: ServiceAfisha
+      - package: Dip
     sources:
       - path: example
     scheme:
@@ -96,3 +97,6 @@ packages:
         path: Features/FeatureAfishaDetail
     CommonCore:
         path: Common/CommonCore
+    Dip:
+        url: https://github.com/AliSoftware/Dip
+        from: 7.1.1

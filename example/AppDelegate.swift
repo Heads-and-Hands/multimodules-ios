@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import ServiceSportmaster
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
