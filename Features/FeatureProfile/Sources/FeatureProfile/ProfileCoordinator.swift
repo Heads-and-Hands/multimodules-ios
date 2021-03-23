@@ -30,8 +30,8 @@ extension DependencyContainer: ProfileResolver {
 
 // MARK: - Assembly
 
-enum ProfileAssembly {
-    static let container: DependencyContainer = {
+public enum ProfileAssembly {
+    public static let container: DependencyContainer = {
         let container = DependencyContainer()
 
         container.register(.unique) {
