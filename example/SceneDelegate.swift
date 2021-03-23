@@ -9,7 +9,7 @@ import UIKit
 import AuthUserStory
 import ApiClient
 */
-
+/*
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Internal
 
@@ -36,4 +36,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         self.window = window
     }
-}
+}*/

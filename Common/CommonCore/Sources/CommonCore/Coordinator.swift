@@ -8,6 +8,8 @@
 import UIKit
 
 public protocol CoordinatorProtocol {
+    var contextController: UIViewController? { get }
+
     func start()
 }
 
@@ -33,6 +35,10 @@ open class NavigationCoordinator: CoordinatorProtocol {
 
     private let navigationController: UINavigationController
 
+    public var contextController: UIViewController? {
+        navigationController
+    }
+    
     open func start() {
 
     }

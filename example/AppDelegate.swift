@@ -12,23 +12,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let privateWindow = UIWindow(frame: UIScreen.main.bounds)
+
+    lazy var modules: [UIApplicationDelegate] = [
+        ServiceSportmaster.Module(window: privateWindow, container: Assembly.container, mainModule: true)
+    ]
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        true
+        modules.forEach {
+            _ = $0.application?(application, didFinishLaunchingWithOptions: launchOptions)
+        }
+        return true
     }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(
-        _: UIApplication,
-        configurationForConnecting connectingSceneSession: UISceneSession,
-        options _: UIScene.ConnectionOptions
-    ) -> UISceneConfiguration {
-        UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
-
 }

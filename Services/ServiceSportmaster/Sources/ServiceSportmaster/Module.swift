@@ -8,6 +8,7 @@
 import UIKit
 import Dip
 import CommonCore
+import FeatureSportmasterMain
 
 public class Module: NSObject, UIApplicationDelegate {
     public init(window: UIWindow, container: DependencyContainer, mainModule: Bool) {
@@ -23,12 +24,12 @@ public class Module: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         if mainModule {
-            let navigationController = UINavigationController(nibName: nil, bundle: nil)
-            let naviagationRouter = NavigationRouter(navigationController: navigationController)
-            
+            if let coordinator: CoordinatorProtocol = try? container.resolve(tag: SportmasterMainRouteId.dashboard.rawValue) {
+                coordinator.start()
 
-            window?.rootViewController = navigationController
-            window?.makeKeyAndVisible()
+                window?.rootViewController = coordinator.contextController
+                window?.makeKeyAndVisible()
+            }
         }
 
         return true
@@ -39,13 +40,3 @@ public class Module: NSObject, UIApplicationDelegate {
     private let container: DependencyContainer
     private let mainModule: Bool
 }
-
-/*
-func splashCoordinator(force: Bool, from router: WindowRouter) throws -> SplashCoordinator {
-    let rootVC: UINavigationController = try resolve()
-    let router = NavigationRouter(navigationController: rootVC, parentRouter: router)
-    let coordinator = SplashCoordinator(router: router, resolver: self)
-    coordinator.forceAuth = force
-    return coordinator
-}
-*/
