@@ -9,10 +9,20 @@ import Foundation
 import CommonCore
 import Dip
 
-class ProfileCoordinator: Coordinator<NavigationRouter, ProfileResolver> {
-    override func start() throws {
-        let screen = try resolver.profileScreen()
-        router.push(controller: screen, animated: true)
+public enum ProfileRouteId: String {
+    case main = "ProfileRouteId"
+}
+
+class ProfileCoordinator: NavigationCoordinator {
+    var profileScreen: (() throws -> ProfileScreen)?
+
+    override func start() {
+        guard let screen = try? profileScreen?() else {
+            return
+        }
+
+        print("ProfileCoordinator start")
+        push(controller: screen, animated: true)
     }
 }
 
@@ -42,6 +52,13 @@ public enum ProfileAssembly {
             ProfileDataProviderImp()
         }
         .implements(ProfileDataProvider.self)
+
+        container
+            .register(.unique, tag: ProfileRouteId.main.rawValue) { () -> CoordinatorProtocol in
+                let coordinator = ProfileCoordinator(navigationController: try container.resolve())
+                coordinator.profileScreen = { try container.resolve() }
+                return coordinator
+            }
 
         return container
     }()

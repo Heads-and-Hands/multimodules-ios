@@ -5,13 +5,13 @@
 //  Created by basalaev on 23.03.2021.
 //
 
-import Foundation
+import UIKit
 import CommonCore
 import Dip
 
 // TODO: Запихнуть айди
 public enum SportmasterMainRouteId: String {
-    case dashboard
+    case dashboard = "SportmasterMainRouteId"
 }
 
 public enum SportmasterMainRoute: String, Route {
@@ -29,6 +29,8 @@ class SportmasterMainCoordinator: NavigationCoordinator {
             return
         }
 
+        print("SportmasterMainCoordinator start")
+
         // TODO: Родительского дочерние связи
         screen.openAfisha = {
             do {
@@ -40,7 +42,17 @@ class SportmasterMainCoordinator: NavigationCoordinator {
 
         screen.openProfile = {
             do {
-                try self.routeFactory?(.profile).start()
+                guard let coordinator = try self.routeFactory?(.profile) else {
+                    return
+                }
+
+                coordinator.start()
+
+                if let navigation = coordinator.contextController as? UINavigationController {
+                    if let controller = navigation.viewControllers.last {
+                        self.push(controller: controller, animated: true)
+                    }
+                }
             } catch {
                 print("Error \(error)")
             }
@@ -61,14 +73,12 @@ public enum SportmasterMainAssembly {
         }
 
         container
-            .register(.unique) {
-                SportmasterMainCoordinator(navigationController: try container.resolve())
-            }
-            .resolvingProperties { container, coordinator in
+            .register(.unique, tag: SportmasterMainRouteId.dashboard.rawValue) { () -> CoordinatorProtocol in
+                let coordinator = SportmasterMainCoordinator(navigationController: try container.resolve())
                 coordinator.mainScreenFactory = { try container.resolve() }
                 coordinator.routeFactory = { tag in try container.resolve(tag: tag.rawValue) }
+                return coordinator
             }
-            .implements(CoordinatorProtocol.self, tag: SportmasterMainRouteId.dashboard.rawValue)
 
         return container
     }()
